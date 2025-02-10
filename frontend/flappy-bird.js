@@ -105,140 +105,140 @@ let playerHighScore = 0;
 
 let leaderboardData = []; // To store leaderboard data
 
-// Function to fetch and display the leaderboard
-async function displayLeaderboard() {
-    try {
-        const response = await fetch('http://localhost:5000/leaderboard');  // API to get leaderboard
-        if (!response.ok) {
-            throw new Error('Failed to fetch leaderboard');
-        }
-        leaderboardData = await response.json(); // Get leaderboard data
+// // Function to fetch and display the leaderboard
+// async function displayLeaderboard() {
+//     try {
+//         const response = await fetch('http://localhost:5000/leaderboard');  // API to get leaderboard
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch leaderboard');
+//         }
+//         leaderboardData = await response.json(); // Get leaderboard data
 
-        // Create a leaderboard display
-        const leaderboardContainer = document.createElement('div');
-        leaderboardContainer.id = 'leaderboardContainer';
-        leaderboardContainer.style.position = 'absolute';
-        leaderboardContainer.style.top = '10%';  // Reduced top margin
-        leaderboardContainer.style.left = '50%';
-        leaderboardContainer.style.transform = 'translateX(-50%)'; // Center horizontally
-        leaderboardContainer.style.backgroundColor = '#f5e155';  // Gentle yellow background
-        leaderboardContainer.style.color = 'black';  // Set font color to black
-        leaderboardContainer.style.padding = '30px';
-        leaderboardContainer.style.borderRadius = '30px';  // More rounded corners
-        leaderboardContainer.style.fontFamily = 'Arial, sans-serif';
-        leaderboardContainer.style.zIndex = '10';
-        leaderboardContainer.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
-        leaderboardContainer.style.fontSize = '16px';  // Main font size for title and content
-        leaderboardContainer.style.width = '450px';  // Increased width for more space (rounded square)
+//         // Create a leaderboard display
+//         const leaderboardContainer = document.createElement('div');
+//         leaderboardContainer.id = 'leaderboardContainer';
+//         leaderboardContainer.style.position = 'absolute';
+//         leaderboardContainer.style.top = '10%';  // Reduced top margin
+//         leaderboardContainer.style.left = '50%';
+//         leaderboardContainer.style.transform = 'translateX(-50%)'; // Center horizontally
+//         leaderboardContainer.style.backgroundColor = '#f5e155';  // Gentle yellow background
+//         leaderboardContainer.style.color = 'black';  // Set font color to black
+//         leaderboardContainer.style.padding = '30px';
+//         leaderboardContainer.style.borderRadius = '30px';  // More rounded corners
+//         leaderboardContainer.style.fontFamily = 'Arial, sans-serif';
+//         leaderboardContainer.style.zIndex = '10';
+//         leaderboardContainer.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+//         leaderboardContainer.style.fontSize = '16px';  // Main font size for title and content
+//         leaderboardContainer.style.width = '450px';  // Increased width for more space (rounded square)
 
-        // Create the leaderboard title
-        let leaderboardText = '<h3 style="font-size: 24px; margin-bottom: 15px; text-align: center;">Leaderboard:</h3>';
+//         // Create the leaderboard title
+//         let leaderboardText = '<h3 style="font-size: 24px; margin-bottom: 15px; text-align: center;">Leaderboard:</h3>';
 
-        // Create a flex container for the leaderboard items (name & score in separate columns)
-        leaderboardText += `
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; padding-bottom: 10px; border-bottom: 2px solid black;">
-            <span>Player Name</span>
-            <span>High Score</span>
-        </div>`;
+//         // Create a flex container for the leaderboard items (name & score in separate columns)
+//         leaderboardText += `
+//         <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; padding-bottom: 10px; border-bottom: 2px solid black;">
+//             <span>Player Name</span>
+//             <span>High Score</span>
+//         </div>`;
 
-        // Generate the leaderboard list items
-        leaderboardData.forEach((entry) => {
-            leaderboardText += `
-            <div style="display: flex; justify-content: space-between; padding: 5px 0;">
-                <span>${entry.playerName}</span>
-                <span>${entry.highScore}</span>
-            </div>`;
-        });
+//         // Generate the leaderboard list items
+//         leaderboardData.forEach((entry) => {
+//             leaderboardText += `
+//             <div style="display: flex; justify-content: space-between; padding: 5px 0;">
+//                 <span>${entry.playerName}</span>
+//                 <span>${entry.highScore}</span>
+//             </div>`;
+//         });
 
-        leaderboardContainer.innerHTML = leaderboardText;
-        document.body.appendChild(leaderboardContainer);
+//         leaderboardContainer.innerHTML = leaderboardText;
+//         document.body.appendChild(leaderboardContainer);
 
-        // Wait a bit to let the leaderboard be visible
-        setTimeout(() => {
-            leaderboardContainer.style.display = 'none';  // Hide the leaderboard after a few seconds
-            startGame(); // Now prompt for player name
-        }, 2000); // 5 seconds for leaderboard visibility
-    } catch (error) {
-        console.error('Error fetching leaderboard:', error);
-    }
-}
+//         // Wait a bit to let the leaderboard be visible
+//         setTimeout(() => {
+//             leaderboardContainer.style.display = 'none';  // Hide the leaderboard after a few seconds
+//             startGame(); // Now prompt for player name
+//         }, 2000); // 5 seconds for leaderboard visibility
+//     } catch (error) {
+//         console.error('Error fetching leaderboard:', error);
+//     }
+// }
 
 // Function to start the game after getting the name using prompt
-function startGame() {
-    // Get player name from prompt
-    playerName = prompt("Enter your name", "Player");
+// function startGame() {
+//     // Get player name from prompt
+//     playerName = prompt("Enter your name", "Player");
 
-    // If the user didn't enter a name, use the default 'Player'
-    if (!playerName) {
-        playerName = 'Player';
-    }
+//     // If the user didn't enter a name, use the default 'Player'
+//     if (!playerName) {
+//         playerName = 'Player';
+//     }
 
-    // Hide the prompt (no need to actually hide anything in HTML)
-    document.getElementById('gameCanvas').style.display = 'block';
+//     // Hide the prompt (no need to actually hide anything in HTML)
+//     document.getElementById('gameCanvas').style.display = 'block';
 
-    registerPlayer(playerName)
-        .then(response => {
-            console.log(response,"here");
-            // Reset the game and start the game loop after player registration
-            if (response.highScore !== undefined) {
-                playerHighScore = response.highScore;
-            }
-            resetGame();
-            gameLoop();
-        })
-        .catch(error => {
-            console.error('Error registering player:', error);
-            // Handle any error (e.g., player already exists)
-        });
-}
+//     registerPlayer(playerName)
+//         .then(response => {
+//             console.log(response,"here");
+//             // Reset the game and start the game loop after player registration
+//             if (response.highScore !== undefined) {
+//                 playerHighScore = response.highScore;
+//             }
+//             resetGame();
+//             gameLoop();
+//         })
+//         .catch(error => {
+//             console.error('Error registering player:', error);
+//             // Handle any error (e.g., player already exists)
+//         });
+// }
 
 // Function to register the player on the backend
-async function registerPlayer(name) {
-    const response = await fetch('http://localhost:5000/players', {  // Change URL if necessary
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ PlayerName: name })
-    });
+// async function registerPlayer(name) {
+//     const response = await fetch('http://localhost:5000/players', {  // Change URL if necessary
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ PlayerName: name })
+//     });
 
-    if (!response.ok) {
-        const message = await response.text();
-        throw new Error(message);  // If registration failed, throw an error
-    }
+//     if (!response.ok) {
+//         const message = await response.text();
+//         throw new Error(message);  // If registration failed, throw an error
+//     }
 
-    const data = await response.json();
-    return data;  // Return success message or any other data
-}
+//     const data = await response.json();
+//     return data;  // Return success message or any other data
+// }
 
 // Function to submit the score to the backend
-async function submitScore() {
-    const scoreData = {
-        PlayerName: playerName,  // The player's name
-        Score: gameData.score    // The current score
-    };
+// async function submitScore() {
+//     const scoreData = {
+//         PlayerName: playerName,  // The player's name
+//         Score: gameData.score    // The current score
+//     };
 
-    try {
-        // Send the score data to the backend API
-        const response = await fetch('http://localhost:5000/submit-score', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(scoreData)
-        });
+//     try {
+//         // Send the score data to the backend API
+//         const response = await fetch('http://localhost:5000/submit-score', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(scoreData)
+//         });
 
-        if (!response.ok) {
-            const errorMessage = await response.text();
-            alert('Failed to submit score: ' + errorMessage);
-        } else {
-            const result = await response.json();
-        }
-    } catch (error) {
-        console.error('Error submitting score:', error);
-        // alert('Error submitting score. Please try again later.');
-    }
-}
+//         if (!response.ok) {
+//             const errorMessage = await response.text();
+//             alert('Failed to submit score: ' + errorMessage);
+//         } else {
+//             const result = await response.json();
+//         }
+//     } catch (error) {
+//         console.error('Error submitting score:', error);
+//         // alert('Error submitting score. Please try again later.');
+//     }
+// }
 
 
 function resetGame() {
@@ -278,12 +278,12 @@ function drawScore() {
     ctx.fillText('Score: ' + gameData.score, 20, 30); 
 }
 
-function drawPlayerName() {
-    ctx.fillStyle = '#000';
-    ctx.font = '20px Arial';
-    ctx.fillText('Player: ' + playerName, 20, 60);  // Position can be adjusted
-    ctx.fillText('High Score: ' + playerHighScore, 20, 90);
-}
+// function drawPlayerName() {
+//     ctx.fillStyle = '#000';
+//     ctx.font = '20px Arial';
+//     ctx.fillText('Player: ' + playerName, 20, 60);  // Position can be adjusted
+//     ctx.fillText('High Score: ' + playerHighScore, 20, 90);
+// }
 // Modified game loop to call updateScore
 function gameLoop() {
     updateGame();
@@ -294,7 +294,7 @@ function gameLoop() {
         setTimeout(gameLoop, config.gameSpeed);
     } else {
         alert('Game Over! Final Score: ' + gameData.score);
-        submitScore();  // Submit score to the backend
+        // submitScore();  // Submit score to the backend
     }
 }
 
@@ -393,13 +393,14 @@ function draw() {
     drawBird();  
     drawPipes();  
     drawScore();
-    drawPlayerName();  
+    // drawPlayerName();  
 }
 
 window.onload = function() {
     // Show the prompt to enter the name as soon as the page is loaded
     // startGame();  // Calling startGame when the page loads
-    displayLeaderboard();
+    // displayLeaderboard();
+    gameLoop();
 };
 
 // Bird jump action (when spacebar is pressed)
